@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	ppkg "github.com/attiss/advent-of-code-2020/day4/passports"
 	"log"
 	"os"
 	"strconv"
@@ -20,7 +21,11 @@ func main() {
 
 	validCount := 0
 	for _, passport := range passports {
-		if passport.IsValid() {
+		valid, err := passport.IsValid()
+		if err != nil {
+			log.Printf("invalid passport (%+v): %v", passport, err)
+		}
+		if valid {
 			validCount++
 		}
 	}
@@ -28,21 +33,21 @@ func main() {
 	log.Printf("found %d valid passports", validCount)
 }
 
-func readInputFromFile(filePath string) (passports []Passport, err error) {
+func readInputFromFile(filePath string) (passports []ppkg.Passport, err error) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return
 	}
 	defer file.Close()
 
-	var passport Passport
+	var passport ppkg.Passport
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
 
 		if line == "" {
 			passports = append(passports, passport)
-			passport = Passport{}
+			passport = ppkg.Passport{}
 			continue
 		}
 
@@ -95,22 +100,4 @@ func readInputFromFile(filePath string) (passports []Passport, err error) {
 	}
 
 	return
-}
-
-type Passport struct {
-	BirthYear      int
-	IssueYear      int
-	ExpirationYear int
-	Height         string
-	HairColor      string
-	EyeColor       string
-	PassportID     string
-	CountryID      string
-}
-
-func (p Passport) IsValid() bool {
-	if p.BirthYear != 0 && p.IssueYear != 0 && p.ExpirationYear != 0 && p.Height != "" && p.HairColor != "" && p.EyeColor != "" && p.PassportID != "" {
-		return true
-	}
-	return false
 }
