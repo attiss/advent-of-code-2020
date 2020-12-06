@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"os"
 
@@ -33,10 +32,10 @@ func main() {
 	productOfTrees := 1
 	for _, path := range checkPaths {
 		trees := treeMap.CountPathTrees(path.right, path.down)
-		fmt.Printf("path (right %d; down %d) encounters %d trees\n", path.right, path.down, trees)
+		log.Printf("path (right %d; down %d) encounters %d trees", path.right, path.down, trees)
 		productOfTrees *= trees
 	}
-	fmt.Printf("product of trees: %d\n", productOfTrees)
+	log.Printf("product of trees: %d", productOfTrees)
 }
 
 func readInputFromFile(filePath string) (treeMap treemap.TreeMap, err error) {

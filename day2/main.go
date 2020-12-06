@@ -34,7 +34,7 @@ func main() {
 		}
 	}
 
-	fmt.Println(validRecords)
+	log.Println(validRecords)
 }
 
 func readInputFromFile(filePath string, policyType int) (input []records.Record, err error) {
