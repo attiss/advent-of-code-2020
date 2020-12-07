@@ -24,18 +24,21 @@ func main() {
 	var foundTarget bool
 	var result int
 	var steps int
-	for i := 0; i < len(input); i++ {
+	for i := len(input) - 1; i >= 0; i-- {
 		if foundTarget {
 			break
 		}
-
 		for j := len(input) - 1; j >= 0; j-- {
-			steps++
-
-			if (input[i] + input[j]) == target {
-				foundTarget = true
-				result = input[i] * input[j]
+			if foundTarget {
 				break
+			}
+			for k := len(input) - 1; k >= 0; k-- {
+				steps++
+				if (input[i] + input[j] + input[k]) == target {
+					foundTarget = true
+					result = input[i] * input[j] * input[k]
+					break
+				}
 			}
 		}
 	}
