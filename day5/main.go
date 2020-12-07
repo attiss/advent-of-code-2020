@@ -21,6 +21,7 @@ func main() {
 	rows := 128
 	columns := 8
 
+	// calculating seat IDs
 	var seatIDs []int
 	for _, seat := range seats {
 		seatID := seat.GetSeatID(rows, columns)
@@ -28,8 +29,18 @@ func main() {
 		seatIDs = append(seatIDs, seatID)
 	}
 
+	// part one: finding highest seat ID
 	sort.Ints(seatIDs)
-	log.Printf("highest SeatID: %d", seatIDs[len(seatIDs)-1])
+	highest := seatIDs[len(seatIDs)-1]
+	log.Printf("highest SeatID: %d", highest)
+
+	// part two: finding my emtpy seat
+	for i := 0; i+1 <= len(seatIDs)-1; i++ {
+		if seatIDs[i+1]-seatIDs[i] != 1 {
+			log.Printf("my SeatID: %d", seatIDs[i]+1)
+			break
+		}
+	}
 }
 
 func readInputFromFile(filePath string) (seats []plane_seat.PlaneSeat, err error) {
