@@ -18,12 +18,14 @@ func main() {
 		log.Fatalf("failed to get input: %v", err)
 	}
 
-	var sum int
+	var uniqueSum, matchingSum int
 	for _, groupAnswers := range aggregatedGroupAnswers {
-		sum += groupAnswers.CountUniqueItems()
+		uniqueSum += groupAnswers.CountUniqueItems()
+		matchingSum += groupAnswers.CountMatchingItems()
 	}
 
-	log.Printf("sum of unique group answers: %d", sum)
+	log.Printf("sum of unique group answers: %d", uniqueSum)
+	log.Printf("sum of matching group answers: %d", matchingSum)
 }
 
 func readInputFromFile(filePath string) (aggregatedGroupAnswers []group_answers.GroupAnswers, err error) {
